@@ -1,9 +1,9 @@
 export async function GET(request) {
     const { searchParams } = new URL(request.url);
-    const latitude = searchParams.get("latitude");
-    const longitude = searchParams.get("longitude");
+    const type = searchParams.get("type");
 
-    const response = await fetch(`https://atcapacitybackend3.onrender.com/api/facilities/nearest?latitude=${latitude}&longitude=${longitude}`, {
+
+    const response = await fetch(`https://atcapacitybackend3.onrender.com/api/facilities/type?type=${type}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"

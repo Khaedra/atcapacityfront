@@ -12,17 +12,26 @@ export default function TypeSelect({ location }) {
 
     const { gyms, setGyms } = useContext(gymContext);
 
-    // useEffect(() => {
-    //     const getTypeFacilities = async () => {
-    //         const response = await fetch(`/api/facilities?type=${type}`)
-    //         const data = await response.json()
-    //         setGyms(data)
-    //     }
-    //     getTypeFacilities();
-    //     return () => {
-    //         setGyms([])
-    //     }
-    // }, [type])
+    useEffect(() => {
+        const getTypeFacilities = async () => {
+
+            const response = await fetch(`/api/all`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = await response.json()
+            const filteredGyms = type !== "Near Me" ? data.filter((gym) => gym.type === type) : data;
+            setGyms(filteredGyms);
+            console.log(filteredGyms);
+            return;
+        }
+        getTypeFacilities();
+        return () => {
+            setGyms([])
+        }
+    }, [type])
 
     return (
         <div className="mt-5 w-full">
@@ -40,20 +49,24 @@ export default function TypeSelect({ location }) {
                         <Image src="/star.png" width={30} height={30} alt="yoga"></Image>
                         Near Me
                     </div>
-                    <div className={`w-full h-24 ${type == "Courts" && "bg-gray-100"} rounded-xl flex gap-2 flex-col justify-center items-center`}
-                        onClick={() => setType("Courts")}>
+                    <div className={`w-full h-24 ${type == "COURT" && "bg-gray-100"} rounded-xl flex gap-2 flex-col justify-center items-center`}
+                        onClick={() => {
+                            setType("COURT")
 
-                        <Image src="/court.png" width={30} height={30} alt="classes"></Image>
+                        }
+                        }>
+
+                        <Image src="/court.png" width={30} height={30} alt="courts"></Image>
                         Courts
                     </div>
-                    <div className={`w-full h-24 ${type == "Classes" && "bg-gray-100"} rounded-xl flex gap-2 flex-col justify-center items-center`}
-                        onClick={() => setType("Classes")}>
+                    <div className={`w-full h-24 ${type == "CLASS" && "bg-gray-100"} rounded-xl flex gap-2 flex-col justify-center items-center`}
+                        onClick={() => setType("CLASS")}>
 
                         <Image src="/yoga.png" width={30} height={30} alt="yoga"></Image>
                         Classes
                     </div>
-                    <div className={`w-full h-24 ${type == "Gyms" && "bg-gray-100"} rounded-xl flex gap-2 flex-col justify-center items-center`}
-                        onClick={() => setType("Gyms")}>
+                    <div className={`w-full h-24 ${type == "GYM" && "bg-gray-100"} rounded-xl flex gap-2 flex-col justify-center items-center`}
+                        onClick={() => setType("GYM")}>
 
                         <Image src="/gym.png" width={30} height={30} alt="yoga"></Image>
                         Gyms
@@ -62,6 +75,6 @@ export default function TypeSelect({ location }) {
                 </div>
             </div>
             <FacilitiesList type={type} location={location} />
-        </div>
+        </div >
     )
 }

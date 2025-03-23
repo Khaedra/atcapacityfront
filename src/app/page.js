@@ -23,22 +23,6 @@ export default function Home() {
 
   useEffect(() => {
 
-    async function getNearbyGyms() {
-      // const response = await fetch(`/api/gyms?latitude=${location.latitude}&longitude=${location.longitude}`);
-      const response = await fetch(`/api/gyms`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          latitude: location.latitude,
-          longitude: location.longitude
-        })
-      });
-      const data = await response.json();
-      setGyms(data);
-      console.log(data)
-    }
 
     if (!navigator.geolocation) {
       setLocation({ ...location, loading: false, error: "Geolocation is not supported" });
@@ -53,8 +37,7 @@ export default function Home() {
           loading: false,
           error: false
         });
-        console.log("IT SUCCESSFULLY UPDATED THE LOCATION");
-        getNearbyGyms();
+
       },
       () => {
         console.log("IT FAILED TO UPDATE THE LOCATION");
@@ -65,6 +48,26 @@ export default function Home() {
 
 
   }, []);
+
+  useEffect(() => {
+    async function getNearbyGyms() {
+      if (location.latitude !== null && location.longitude !== null) {
+        console.log("Fetching gyms with:", location.latitude, location.longitude);
+        const response = await fetch(`/api/gyms?latitude=${location.latitude}&longitude=${location.longitude}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        const data = await response.json();
+        setGyms(data);
+        console.log("Fetched gyms:", data);
+      }
+    }
+
+    getNearbyGyms();
+  }, [location.latitude, location.longitude]);
+
 
   const top = {
     "id": "123",

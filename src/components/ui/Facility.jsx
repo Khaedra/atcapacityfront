@@ -15,7 +15,7 @@ export default function Facility({ gym }) {
     return (
 
         <div className={`w-full text-[0.8rem] font-extralight rounded-xl 
-         transition duration-200 border border-gray-300 p-3 ${gym.isOpen ? "border-l-green-600 border-l-4" : "border-l-red-500 border-l-4"}`}>
+         transition duration-200 border border-gray-300 p-3 ${gym.open ? "border-l-green-600 border-l-4" : "border-l-red-500 border-l-4"}`}>
             <div className="flex w-full">
                 <div className="mr-4">
                     {!opened ? <ChevronRight className="w-4 h-4" onClick={() => isOpened(!opened)}></ChevronRight> : <ChevronDown className="w-4 h-4" onClick={() => isOpened(!opened)}></ChevronDown>}
@@ -32,8 +32,8 @@ export default function Facility({ gym }) {
 
 
                         <div>
-                            <div className={`${gym.isOpen ? "bg-green-200" : "bg-red-300"} py-1 px-2 -mt-1 rounded-2xl`}>
-                                {gym.isOpen ? <p className="text-green-600">Open</p> : <p className="text-red-500">Closed</p>}
+                            <div className={`${gym.open ? "bg-green-200" : "bg-red-300"} py-1 px-2 -mt-1 rounded-2xl`}>
+                                {gym.open ? <p className="text-green-600">Open</p> : <p className="text-red-500">Closed</p>}
                             </div>
                             {gym.type == "CLASS" && <div className={`bg-yellow-200 text-center py-1 px-2 mt-1 rounded-2xl`}>
                                 <p className="text-yellow-600">Book</p>
