@@ -1,6 +1,6 @@
 "use client"
 
-import { Search } from "lucide-react"
+import { Info, Search } from "lucide-react"
 import { Input } from "./input"
 import { Button } from "./button"
 import { useEffect, useState } from "react"
@@ -63,6 +63,13 @@ export default function HeroSearch() {
                             <div className="w-full h-36 border p-3 bg-green-400 rounded-2xl">
                                 Classes
                             </div>
+                        </div>
+
+                        <div className="border w-full h-30 bg-gray-300 rounded-2xl flex items-center p-4">
+                            <Info className="w-6 h-6 text-yellow-600 mr-4"></Info>
+                            <p className="text-[0.9rem] w-[90%]">
+                                Tip: Create a profile to mark your favorite facilities, recieve notifications and more.
+                            </p>
                         </div>
                     </div>}
 

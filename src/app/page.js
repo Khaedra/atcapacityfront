@@ -8,6 +8,7 @@ import Image from "next/image";
 import { gymContext } from "@/contexts/gymContext";
 import Featured from "@/components/ui/Featured";
 import MoreWays from "@/components/ui/MoreWays";
+import TopPick from "@/components/ui/TopPIck";
 
 export default function Home() {
 
@@ -65,6 +66,25 @@ export default function Home() {
 
   }, []);
 
+  const top = {
+    "id": "123",
+    "name": "BirdCoop Gym",
+    "currentOccupancy": 50,
+    "totalCapacity": 80,
+    "location": {
+      "street": "6000 Student Union Blvd",
+      "city": "Vancouver, BC",
+      "postal": "V6T 1Z1",
+      "latitude": 49.2606,
+      "longitude": -123.2460
+    },
+    "owner": "UBC Recreation",
+    "hours": "06:30-22:00",
+    "link": "https://www.recreation.ubc.ca/",
+    "type": "GYM",
+    "isOpen": true
+  }
+
 
 
   return (
@@ -73,6 +93,7 @@ export default function Home() {
       <gymContext.Provider value={{ gyms, setGyms }}>
         {/* <HeroSearch /> */}
         <TypeSelect location={location} />
+        <TopPick gym={top} />
         <Featured />
         <MoreWays />
       </gymContext.Provider>

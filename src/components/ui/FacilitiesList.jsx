@@ -4,12 +4,18 @@ import Facility from "./Facility"
 import { gymContext } from "@/contexts/gymContext"
 import { GlobeLock, RefreshCcw } from "lucide-react";
 import { Button } from "./button";
+import { useState } from "react";
 
 
 export default function FacilitiesList({ type, location }) {
+    const [visibleCount, setVisibleCount] = useState(3);
+
+    const handleLoadMore = () => {
+        setVisibleCount(gyms.length); // Show all gyms
+    };
 
     // const { gyms, setGyms } = useContext(gymContext)
-    // POSSUBLY ALSO ADD RATINGS + PICTURE + PHONE NUMBER
+    // POSSUBLY ALSO ADD RATINGS + PICTURE + PHONE NUMBER + DISTANCE KM
     const gyms = [
         {
             "id": "123",
@@ -32,26 +38,45 @@ export default function FacilitiesList({ type, location }) {
 
         {
             "id": "124",
-            "name": "BirdCoop",
-            "currentOccupancy": 60,
+            "name": "Kerrisdale CC",
+            "currentOccupancy": 11,
+            "totalCapacity": 50,
+            "location": {
+                "street": "5851 West Blvd",
+                "city": "Vancouver, BC",
+                "postal": "V6M 3W9",
+                "latitude": 49.2606,
+                "longitude": -123.2460
+            },
+            "owner": "Kerrisdale Community Centre",
+            "hours": "06:30-22:00",
+            "link": "https://kerrisdalecc.com/",
+            "type": "COURT",
+            "isOpen": true
+        },
+
+        {
+            "id": "124",
+            "name": "VNYSA Yoga Studio",
+            "currentOccupancy": 0,
             "totalCapacity": 80,
             "location": {
-                "street": "6000 Student Union Blvd",
+                "street": "3378 Westbrooke Mall",
                 "city": "Vancouver, BC",
                 "postal": "V6T 1Z1",
                 "latitude": 49.2606,
                 "longitude": -123.2460
             },
-            "owner": "UBC Recreation",
+            "owner": "VNYSA",
             "hours": "06:30-22:00",
-            "link": "https://www.recreation.ubc.ca/",
-            "type": "GYM",
+            "link": "https://www.vynsa.com",
+            "type": "CLASS",
             "isOpen": false
         },
 
         {
             "id": "124",
-            "name": "Golds Gym",
+            "name": "Fitness World",
             "currentOccupancy": 60,
             "totalCapacity": 80,
             "location": {
@@ -67,25 +92,6 @@ export default function FacilitiesList({ type, location }) {
             "type": "GYM",
             "isOpen": false
         },
-
-        // {
-        //     "id": "124",
-        //     "name": "Fitness World",
-        //     "currentOccupancy": 60,
-        //     "totalCapacity": 80,
-        //     "location": {
-        //         "street": "6000 Student Union Blvd",
-        //         "city": "Vancouver, BC",
-        //         "postal": "V6T 1Z1",
-        //         "latitude": 49.2606,
-        //         "longitude": -123.2460
-        //     },
-        //     "owner": "UBC Recreation",
-        //     "hours": "06:30-22:00",
-        //     "link": "https://www.recreation.ubc.ca/",
-        //     "type": "GYM",
-        //     "isOpen": false
-        // },
 
     ];
 
@@ -104,14 +110,14 @@ export default function FacilitiesList({ type, location }) {
 
             </div>
 
-            <div className="w-full flex items-center flex-col gap-5 h-full overflow-scroll mb-4">
+            <div className="w-full flex items-center flex-col gap-5 h-full mb-4">
                 {/* {location.error ? location.error : gyms.map(gym => <Facility key={gym.name} gym={gym} />)} */}
                 {/* maybe just show first 3 but request 6-7 */}
-                {gyms.map(gym => {
+                {gyms.slice(0, visibleCount).map(gym => {
                     return <Facility key={gym.name} gym={gym} />
                 })}
 
-                <Button className="w-36 h-8 bg-white border border-black text-black active:scale-95 ">Load More</Button>
+                <Button className="w-36 h-8 bg-white border border-black text-black active:scale-95" onClick={() => setVisibleCount(gyms.length)}>Load More</Button>
             </div>
 
         </div>

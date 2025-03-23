@@ -14,7 +14,7 @@ export default function Facility({ gym }) {
     }
     return (
 
-        <div className={`w-full ${opened ? "h-56" : "h-24"} text-[0.8rem] font-extralight rounded-xl 
+        <div className={`w-full text-[0.8rem] font-extralight rounded-xl 
          transition duration-200 border border-gray-300 p-3 ${gym.isOpen ? "border-l-green-600 border-l-4" : "border-l-red-500 border-l-4"}`}>
             <div className="flex w-full">
                 <div className="mr-4">
@@ -22,19 +22,31 @@ export default function Facility({ gym }) {
                 </div>
                 <div className="w-full flex flex-col">
                     <div className="w-full flex justify-between">
-                        <p className="font-normal mb-1">{gym.name}</p>
-                        <div className={`${gym.isOpen ? "bg-green-200" : "bg-red-300"} py-1 px-2 -mt-1 rounded-2xl`}>
-                            {gym.isOpen ? <p className="text-green-600">Open</p> : <p className="text-red-500">Closed</p>}
+                        <div>
+                            <p className="font-normal mb-1">{gym.name}</p>
+                            <div className="flex gap-1 items-center">
+                                <Pin className="w-3 h-3"></Pin>
+                                <p className="text-[0.6rem]">{gym.location.street}</p>
+                            </div>
                         </div>
+
+
+                        <div>
+                            <div className={`${gym.isOpen ? "bg-green-200" : "bg-red-300"} py-1 px-2 -mt-1 rounded-2xl`}>
+                                {gym.isOpen ? <p className="text-green-600">Open</p> : <p className="text-red-500">Closed</p>}
+                            </div>
+                            {gym.type == "CLASS" && <div className={`bg-yellow-200 text-center py-1 px-2 mt-1 rounded-2xl`}>
+                                <p className="text-yellow-600">Book</p>
+                            </div>}
+
+                        </div>
+
                     </div>
 
-                    <div className="flex gap-1 items-center">
-                        <Pin className="w-3 h-3"></Pin>
-                        <p className="text-[0.6rem]">{gym.location.street}</p>
-                    </div>
 
 
-                    <div className="flex justify-between mt-2">
+
+                    <div className="flex justify-between mt-4">
                         <p>Capacity</p>
                         <p>{gym.currentOccupancy} / {gym.totalCapacity}</p>
                     </div>
@@ -46,6 +58,8 @@ export default function Facility({ gym }) {
                             style={{ width: `${ratio * 100}%`, backgroundColor: getColorFromRatio(ratio) }}>
                         </div>
                     </div>
+                    {gym.type == "GYM" && <p className="text-red-400 text-[0.7rem] mt-2">EWT: 15 minutes</p>}
+
 
                 </div>
             </div>
